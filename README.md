@@ -111,21 +111,21 @@ Both remove only what they added: their hook entries, their own `statusLine`, bo
 
 ```mermaid
 flowchart LR
-  subgraph CC[Claude Code]
-    H[hooks] --> hook[dbhook hook]
-    S[statusLine] --> sl[dbhook statusline]
+  subgraph CC["Claude Code"]
+    H["hooks"] --> HK["dbhook hook"]
+    S["statusLine"] --> SL["dbhook statusline"]
   end
-  hook --> A[(~/.desk-buddy/agents/*.json)]
-  sl --> U[(~/.desk-buddy/usage/*.json)]
-  A --> ag[agents.py]
-  U --> us[usage.py]
-  P[psutil] --> sm[sysmon.py<br/>grouping, pause, leaks, rules]
-  N[Notion API] -. optional .-> no[notion.py]
-  ag --> UI[desk_buddy.pyw<br/>tkinter panel]
-  us --> UI
-  sm --> UI
-  no --> UI
-  W[winui.py<br/>tray, Win+Shift+D,<br/>notifications, fullscreen] <--> UI
+  HK --> A[("~/.desk-buddy/agents/*.json")]
+  SL --> U[("~/.desk-buddy/usage/*.json")]
+  A --> AG["agents.py"]
+  U --> US["usage.py"]
+  P["psutil"] --> SM["sysmon.py<br/>grouping, pause, leaks, rules"]
+  N["Notion API"] -. optional .-> NO["notion.py"]
+  AG --> PANEL["desk_buddy.pyw<br/>tkinter panel"]
+  US --> PANEL
+  SM --> PANEL
+  NO --> PANEL
+  W["winui.py<br/>tray, Win+Shift+D,<br/>notifications, fullscreen"] <--> PANEL
 ```
 
 The hooks write files and exit; the panel polls them plus `psutil` every 2 s. No server, no background service.
