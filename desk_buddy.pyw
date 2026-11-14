@@ -287,7 +287,11 @@ class Panel:
 
     def on_drag(self, e):
         if self.drag:
-            self.root.geometry(f"+{e.x_root - self.drag[0]}+{e.y_root - self.drag[1]}")
+            # keep the header fully on screen so the panel can't be lost off an edge
+            sw, sh = self.root.winfo_screenwidth(), self.root.winfo_screenheight()
+            x = min(max(e.x_root - self.drag[0], 0), sw - 60)
+            y = min(max(e.y_root - self.drag[1], 0), sh - HEAD)
+            self.root.geometry(f"+{x}+{y}")
 
     def on_release(self, _e):
         if self.drag:
